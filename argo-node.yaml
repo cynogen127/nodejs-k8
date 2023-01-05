@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fatah-node
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io 
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: bjex
+  project: bjex
+  source:
+    path: .
+    repoURL: https://github.com/cynogen127/nodejs-k8.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+

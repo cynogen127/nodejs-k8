@@ -5,7 +5,7 @@ resources:
 patches:
 - target:
     kind: Deployment
-    name: nodejs-app
+    name: my-deployment
   patch: |-
     - op: replace
       path: "/spec/template/spec/containers/0/image"
