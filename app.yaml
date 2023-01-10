@@ -8,7 +8,7 @@ spec:
     repoURL: https://github.com/cynogen127/nodejs-k8.git
     path: .
   destination:
-    namespace: argocd
+    namespace: nodejs
   syncPolicy:
     automated:
       prune: true
@@ -21,11 +21,11 @@ spec:
     - readinessProbe:
         httpGet:
           path: /
-          port: 8080
+          port: 3000
       livenessProbe:
         httpGet:
           path: /
-          port: 8080
+          port: 3000
   deployment:
     manifests:
     - apiVersion: apps/v1
@@ -47,7 +47,7 @@ spec:
             - name: nodejs-app
               image: node:16-alpine
               ports:
-              - containerPort: 8080
+              - containerPort: 3000
               command: ["node", "index.js"]
               volumeMounts:
               - name: npm-cache
@@ -59,13 +59,13 @@ spec:
     - apiVersion: v1
       kind: Service
       metadata:
-        name: nodejs-app
+        name: nodejs-fatah-k8
       spec:
         type: ClusterIP
         selector:
           app: nodejs-app
         ports:
         - protocol: TCP
-          port: 80
-          targetPort: 8080
+          port: 3000
+          targetPort: 3000
 
